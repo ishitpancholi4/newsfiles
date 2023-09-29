@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<!-- saved from url=(0065)https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch3/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head id="Head1"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="Theme Version"><meta name="Child Theme" content="true"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Module structure: While creating a module, it definitely has its own structure, and you should make sure that you have followed the module structure."><meta name="keywords" content="how to create module in odoo,create custom module in odoo,creating module in odoo14,create module in odoo,odoo custom module,create module in odoo12,create custom module in odoo13,how to create custom module in odoo13,custom module create in odoo,odoo module structure,create odoo modules,how to create a custom module in odoo,custom module in odoo,odoo module creation,odoo basics for creating module,how to create odoo modules,custom module in odoo 15"><meta name="robots" content="INDEX, FOLLOW"><title>
+	Chapter 3.1 Module Structure - Creating Odoo Modules
+</title>
+    <!-- Open Graph data -->
+    <meta property="og:type" content="website"><meta property="og:title" content="Chapter 3.1 Module Structure - Creating Odoo Modules"><meta property="og:description" content="Module structure: While creating a module, it definitely has its own structure, and you should make sure that you have followed the module structure."><meta property="og:url" content="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch3/"><meta property="og:image" content="https://www.images.cybrosys.com/images/odoo-15-development/odoo-15-development-book.jpg"><meta property="fb:app_id" content="1220643824631920">
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@Cybrosys"><meta name="twitter:title" content="Chapter 3.1 Module Structure - Creating Odoo Modules"><meta name="twitter:description" content="Module structure: While creating a module, it definitely has its own structure, and you should make sure that you have followed the module structure."><meta name="twitter:image" content="https://www.images.cybrosys.com/images/odoo-15-development/odoo-15-development-book.jpg"><meta name="twitter:image:alt" content="Chapter 3.1 Module Structure - Creating Odoo Modules"><link rel="canonical" href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch3/"><link rel="shortcut icon" type="image/x-icon" href="https://www.images.cybrosys.com/images/favicon.ico">
+    <script src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/twk-main.js" charset="UTF-8" crossorigin="*"></script><script src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/twk-vendor.js" charset="UTF-8" crossorigin="*"></script><script src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/twk-chunk-vendors.js" charset="UTF-8" crossorigin="*"></script><script src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/twk-chunk-common.js" charset="UTF-8" crossorigin="*"></script><script src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/twk-runtime.js" charset="UTF-8" crossorigin="*"></script><script src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/twk-app.js" charset="UTF-8" crossorigin="*"></script><script type="text/javascript" async="" src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/js"></script><script async="" src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/default" charset="UTF-8" crossorigin="*"></script><script src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/1732337943741957" async=""></script><script type="text/javascript" async="" src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/fbevents.js"></script><script type="text/javascript" async="" src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/analytics.js"></script><script async="" src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/gtm.js"></script><script src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/jquery.fancybox.min.css">
+    <script src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/jquery.fancybox.min.js"></script>
+    <link href="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/odoo-book-v14-optimized.css" rel="stylesheet" type="text/css">
+    <!-- Breadcrumbs-->
+    <script type="application/ld+json">{ "@context": "https://schema.org/", "@type": "BreadcrumbList", "itemListElement": [{ "@type": "ListItem", "position": 1, "name": "www.cybrosys.com", "item": "https://www.cybrosys.com/"},{ "@type": "ListItem", "position": 2, "name": "odoo-15-development-book", "item": "https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/"},{ "@type": "ListItem", "position": 3, "name": "chapter-3.1", "item": "https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch3/"}]} </script>
+    <!-- Google Tag Manager -->
+    <script defer="">        (function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = !0; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f) })(window, document, 'script', 'dataLayer', 'GTM-54BSZHH');</script>
+    <!-- End Google Tag Manager -->
+<style></style><meta http-equiv="origin-trial" content="AymqwRC7u88Y4JPvfIF2F37QKylC04248hLCdJAsh8xgOfe/dVJPV3XS3wLFca1ZMVOtnBfVjaCMTVudWM//5g4AAAB7eyJvcmlnaW4iOiJodHRwczovL3d3dy5nb29nbGV0YWdtYW5hZ2VyLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjk1MTY3OTk5LCJpc1RoaXJkUGFydHkiOnRydWV9"><script type="text/javascript" async="" src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/f.txt"></script><meta http-equiv="origin-trial" content="AymqwRC7u88Y4JPvfIF2F37QKylC04248hLCdJAsh8xgOfe/dVJPV3XS3wLFca1ZMVOtnBfVjaCMTVudWM//5g4AAAB7eyJvcmlnaW4iOiJodHRwczovL3d3dy5nb29nbGV0YWdtYW5hZ2VyLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjk1MTY3OTk5LCJpc1RoaXJkUGFydHkiOnRydWV9"><script charset="utf-8" src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/twk-chunk-2c78ba82.js"></script><script charset="utf-8" src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/twk-chunk-696bc286.js"></script><script charset="utf-8" src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/twk-chunk-2d0b383d.js"></script><script charset="utf-8" src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/twk-chunk-48f46bef.js"></script><script charset="utf-8" src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/twk-chunk-4fe9d5dd.js"></script><script charset="utf-8" src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/twk-chunk-2d0b9454.js"></script><script charset="utf-8" src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/twk-chunk-07cad36d.js"></script><style type="text/css">#wc27l3hh6plo1695885440290 {outline:none !important;
+visibility:visible !important;
+resize:none !important;
+box-shadow:none !important;
+overflow:visible !important;
+background:none !important;
+opacity:1 !important;
+filter:alpha(opacity=100) !important;
+-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity 1}) !important;
+-mz-opacity:1 !important;
+-khtml-opacity:1 !important;
+top:auto !important;
+right:0px !important;
+bottom:0px !important;
+left:auto !important;
+position:fixed !important;
+border:0 !important;
+min-height:0px  !important;
+min-width:0px  !important;
+max-height:none  !important;
+max-width:none  !important;
+padding:0px !important;
+margin:0px !important;
+-moz-transition-property:none !important;
+-webkit-transition-property:none !important;
+-o-transition-property:none !important;
+transition-property:none !important;
+transform:none !important;
+-webkit-transform:none !important;
+-ms-transform:none !important;
+width:auto !important;
+height:auto  !important;
+display:none !important;
+z-index:2000000000 !important;
+background-color:transparent !important;
+cursor:none !important;
+float:none !important;
+border-radius:unset !important;
+pointer-events:auto !important;
+clip:auto !important;
+color-scheme:light !important;}#wc27l3hh6plo1695885440290.widget-hidden {display: none !important;}#wc27l3hh6plo1695885440290.widget-visible {display: block !important;}
+@media print{
+ #wc27l3hh6plo1695885440290.widget-visible { 
+display: none !important;
+ }
+}</style><script src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/emojione.min.js" type="text/javascript" async="" defer=""></script><script src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/emojione.min.js" type="text/javascript" async="" defer=""></script><style type="text/css">@keyframes tawkMaxOpen{0%{opacity:0;transform:translate(0, 30px);;}to{opacity:1;transform:translate(0, 0px);}}@-moz-keyframes tawkMaxOpen{0%{opacity:0;transform:translate(0, 30px);;}to{opacity:1;transform:translate(0, 0px);}}@-webkit-keyframes tawkMaxOpen{0%{opacity:0;transform:translate(0, 30px);;}to{opacity:1;transform:translate(0, 0px);}}#gm4p8779ogho1695885440323.open{animation : tawkMaxOpen .25s ease!important;}@keyframes tawkMaxClose{from{opacity: 1;transform:translate(0, 0px);;}to{opacity: 0;transform:translate(0, 30px);;}}@-moz-keyframes tawkMaxClose{from{opacity: 1;transform:translate(0, 0px);;}to{opacity: 0;transform:translate(0, 30px);;}}@-webkit-keyframes tawkMaxClose{from{opacity: 1;transform:translate(0, 0px);;}to{opacity: 0;transform:translate(0, 30px);;}}#gm4p8779ogho1695885440323.closed{animation: tawkMaxClose .25s ease!important}</style></head>
+<body class="body-green remove"><div role="dialog" aria-live="polite" aria-label="cookieconsent" aria-describedby="cookieconsent:desc" class="cc-window cc-banner cc-type-info cc-theme-block cc-bottom cc-color-override--767653650 cc-invisible" style="display: none;"><!--googleoff: all--><span id="cookieconsent:desc" class="cc-message">Our website is made agreeable with the GDPR requirements. Click to view the refreshed privacy policy of ours. According to our privacy policy, we use cookies for different highlights. We trust that is alright, If you disagree, disable the cookies. <a aria-label="learn more about cookies" role="button" tabindex="0" class="cc-link" href="https://www.cybrosys.com/privacy-policy/" rel="noopener noreferrer nofollow" target="_blank">Privacy policy</a></span><div class="cc-compliance"><a aria-label="dismiss cookie message" role="button" tabindex="0" class="cc-btn cc-dismiss">Accept</a></div><!--googleon: all--></div>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe loading="lazy" src="https://www.googletagmanager.com/ns.html?id=GTM-54BSZHH" height="0" width="0"
+            style="display: none; visibility: hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <form name="form1" method="post" action="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch3/" onsubmit="javascript:return WebForm_OnSubmit();" id="form1">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTE1MjQ4ODc5NWRkJiQabHWk7M1udPvYxTjiCAnxxcIhao+amild5/mm55g=">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/WebResource.axd" type="text/javascript"></script>
+
+
+<script src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/WebResource(1).axd" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+//]]>
+</script>
+
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="0AE05047">
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAAbjEhFIdmfeVhv36ev9pj+ggtREBg72DdyGdDiNf3LvMqdBb8x21unxLezx+ctV/tt5NIlmEr/SBwAuP9C9zW8xOhDAx/aG93y69VGTLUIbnuvfHGwc7cw789XItxZuHHwsrcpwlG+Hh+ENvCPOP+VYRWS+7wraAdnxjDqiMV0y1w==">
+</div>
+        
+<script src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/lazy-offscreen-image.min.js" async=""></script>
+<style>::-webkit-scrollbar{width:10px!important;background-color:#f5f5f5!important}::-webkit-scrollbar-thumb{border-radius:0!important;-webkit-box-shadow:none!important;background-color:#888!important}header{height:80px;position:fixed;top:0;transition:.3s;transition-delay:.3s;width:100%;z-index:999}.nav-up{top:-100px!important}.quick-btn-wrap{display:flex;align-items:center;border:none!important}.menu ul{font-size:13px}.fa-chevron-down:before{content:"\f078"}i{font-style:normal}li.link-none.menu-dropdown-icon a img{width:auto!important;height:auto!important}.menu-container.mega-nav{position:static;z-index:5;width:100%;background:#fff;height:80px;justify-content:center;align-items:center;border-bottom:1px solid #efefef}.mega-nav .menu{width:100%;height:80px;display:flex;justify-content:space-around;align-items:center;padding:0 4em}.mega-nav .menu img{max-width:100%;width:auto}.mega-nav .menu-mobile{display:none;padding:20px}.mega-nav .menu-mobile:after{content:"\f0c9";font-family:FontAwesome;font-size:25px;padding:0;float:right;position:relative;top:50%;-webkit-transform:translateY(-25%);transform:translateY(-25%)}.mega-nav .menu-dropdown-icon:before{content:"";display:none;cursor:pointer;float:right;padding:1.5em 2em;background:#fff;background-image:url(https://www.images.cybrosys.com/images/social/down-arrow.png);background-position:center;background-repeat:no-repeat;width:20px;height:20px}.mega-nav .menu>ul{float:right;width:80%;list-style:none;padding:0;position:relative;box-sizing:border-box;clear:right;margin:0;display:flex;justify-content:flex-end}.mega-nav .menu>ul:after,.mega-nav .menu>ul:before{content:"";display:table}.mega-nav .menu>ul:after{clear:both}.mega-nav .menu>ul>li a{text-decoration:none;padding:1em;display:block;color:#717171;font-weight:500!important;font-family:Montserrat,sans-serif}.menu-container.mega-nav a{transition:.5s all}.mega-nav .menu>ul>li>ul{display:none;width:100%;background:#fff;padding:20px;position:absolute;z-index:99;left:0;margin:0;list-style:none;box-sizing:border-box;box-shadow:2px 4px 8px 2px #00000030}.mega-nav .menu>ul>li:active,.mega-nav .menu>ul>li:focus,.mega-nav .menu>ul>li:hover{background:#fff;outline:0!important}.mega-nav .menu>ul>li>ul.normal-sub{width:300px;left:auto;padding:10px 20px}.mega-nav .menu>ul>li>ul:after,.mega-nav .menu>ul>li>ul:before{content:"";display:table}.mega-nav .menu>ul>li>ul:after{clear:both}.mega-nav .menu>ul>li>ul>li{margin:0;padding-bottom:0;list-style:none;width:20%;background:0 0;float:left}.mega-nav .menu>ul>li>ul>li a{color:#777;padding:.5em 0;width:95%;display:block;border-bottom:1px solid #eaeaea}.mega-nav .menu>ul>li>ul>li a:hover{color:#d21c22}.mega-nav .menu>ul>li>ul>li>ul{display:block;padding:0;margin:10px 0 0;list-style:none;box-sizing:border-box}.mega-nav .menu>ul>li>ul>li>ul:after,.mega-nav .menu>ul>li>ul>li>ul:before{content:"";display:table}.menu>ul>li>ul>li>ul:after{clear:both}.mega-nav .menu>ul>li>ul>li>ul>li{float:left;width:100%;padding:1px 0;margin:0;font-size:.6em}.mega-nav .menu>ul>li>ul>li>ul>li a{border:0;font-size:12px}.mega-nav .menu>ul>li>ul.normal-sub{width:300px;left:auto;padding:10px 20px}.mega-nav .menu>ul>li>ul.normal-sub>li{width:100%}.mega-nav .menu>ul>li>ul.normal-sub>li a{border:0;padding:.6em 0;font-size:12px}.link-none{color:#717171;font-weight:500;font-family:Montserrat,sans-serif;padding:1em!important;width:100%;display:block;width:auto}.menu li{font-size:13px!important;font-family:Montserrat,sans-serif!important}.mega-nav .link-none:before{content:"";display:none;float:right;padding:0;background:#fff;color:#333;background-image:url(https://www.images.cybrosys.com/images/social/down-arrow.png);background-position:center;background-repeat:no-repeat;height:20px;width:20px}p.link-sub-none.link-none{padding-top:5px!important;padding-bottom:10px!important;border-bottom:1px solid #eaeaea;padding-left:0!important}.menu-display{display:none}li.link-none{transition:.5s all;cursor:pointer}img.odoo-certified{width:50%;border:1px solid #f5f5f5;float:left;box-shadow:2px 2px #d8d8d836}.odoov13new{background-color:#895c7d;color:#fff!important;padding:0 12px;box-shadow:1px 2px #ddcbcb45;border-radius:5px!important}.odoov13new{width:100px;height:100px;background-color:red;-webkit-animation-name:example;-webkit-animation-duration:.5s;animation-name:example;animation-duration:.5s;animation-iteration-count:infinite}@-webkit-keyframes example{from{background-color:green}to{background-color:Red}}@keyframes example{from{background-color:#00f}to{background-color:Red}}li.link-none:hover ul{display:block!important}@media (max-width:991px){.dropdown-menu>li>a{display:block;padding:3px 20px;clear:both;font-weight:600!important;line-height:1.42857143;color:#333;white-space:nowrap;text-transform:uppercase!important}.mobile-display{display:block!important}.dropdown,.dropup{position:relative;float:none}.dropdown-menu{top:80%!important;left:24%;text-align:center}.btn.btn-default.quick-enquiry-btn{width:80%;margin:auto}}@media only screen and (max-width:959px){li.quick-btn-wrap.enquiry{padding-top:30px!important}.mega-nav .menu-container{width:100%}li.quick-btn-wrap.enquiry{padding-top:30px!important}.mega-nav .menu-container .menu{display:inline-block}.mega-nav .menu-mobile{display:block;float:right;padding:20px 20px 0}.mega-nav .menu-dropdown-icon:before{display:block}.mega-nav .menu>ul{display:none;width:100%}.mega-nav .menu>ul>li{width:100%;float:none;display:block;border-bottom:1px solid #f1f1f1}.mega-nav .menu>ul>li a{width:100%;display:block}.mega-nav .menu>ul>li>ul{position:relative;padding:0 40px}.mega-nav .menu>ul>li>ul.normal-sub{width:100%}.menu-container.mega-nav a{transition:.5s all;padding:.8rem 1rem;color:#000}.mega-nav .menu .show-on-mobile{display:block;background:#fff;padding:20px 8px 25px}.mega-nav .menu{justify-content:space-between;padding:0 1em}.menu-container.mega-nav a{padding:.8rem 1rem;color:#000}.mega-nav .menu{width:100%;height:auto;display:block;justify-content:space-around;align-items:center;padding:18px 0 0!important;z-index:0;background:#fff}ul.clearfix.show-on-mobile{height:100vh;overflow-y:scroll;background:#fff}.mega-nav .menu>ul>li>ul{box-shadow:2px 4px 8px 2px #0000}.mega-nav .menu-container{width:100%}li.quick-btn-wrap.enquiry{padding-top:30px!important}.mega-nav .menu-container .menu{display:inline-block}.mega-nav .menu-mobile{display:block;float:right;padding:20px 20px 0}.mega-nav .menu-dropdown-icon:before{display:block}.mega-nav .menu>ul{display:none;width:100%}.mega-nav .menu>ul>li{width:100%;float:none;display:block;border-bottom:1px solid #f1f1f1}.mega-nav .menu>ul>li a{width:100%;display:block}.mega-nav .menu>ul>li>ul{position:relative;padding:0 40px}.mega-nav .menu>ul>li>ul.normal-sub{width:100%}.mega-nav .menu>ul>li>ul>li{float:none;width:100%;margin-top:20px}.mega-nav .menu>ul>li>ul>li:first-child{margin:0}.mega-nav .menu>ul>li>ul>li>ul{position:relative}.mega-nav .menu>ul>li>ul>li>ul>li{float:none}.mega-nav .menu .show-on-mobile{display:block}.mega-nav .menu ul li img{max-width:100%;display:none}.mega-nav .menu{justify-content:space-between;padding:0 1em}.menu-container.mega-nav a{transition:.5s all;padding:.8rem 1rem;color:#000}.mega-nav .menu .show-on-mobile{display:block;background:#fff;padding-bottom:25px}.mega-nav .menu{width:100%;height:auto;display:block;justify-content:space-around;align-items:center;padding:18px 0 0!important;z-index:0;background:#fff}ul.clearfix.show-on-mobile{height:100vh;overflow-y:scroll;background:#fff}.mega-nav .menu>ul>li>ul{box-shadow:2px 4px 8px 2px #0000}}.mega-nav .menu>ul>li a{color:#000!important}.link-none{color:#000!important}.mega-nav .menu>ul{justify-content:space-evenly!important}header{height:60px!important}.menu-container.mega-nav{height:60px!important}.mega-nav .menu{height:60px!important}.link-none{padding:.5em!important}.mega-nav .menu>ul>li a{padding:.5em!important}.far,.fas{font-family:"Font Awesome 5 Free"}.mega-nav .menu li a:hover{color:red!important}@media only screen and (max-width:764px){.mega-nav .menu-mobile:after{content:""!important;position:absolute!important;top:7px!important;left:0!important;width:100%!important;border-top:3px solid #070707!important;font-family:none!important}.mega-nav .menu-mobile{display:none;position:relative;display:inline-block;height:.8em;margin-right:2.3em!important;border-top:3px solid #000!important;border-bottom:3px solid #000!important}}li.link-none.menu-dropdown-icon img{width:10px!important}</style>
+
+<style>
+    .book-body li
+    {
+        font-size: 18px;
+        font-family: Open Sans, sans-serif !important;
+        color: #000;
+        line-height: 1.8;
+    }
+    .cybro-logo
+    {
+        display: inline-block;
+        width: 170px;
+        height: 37px;
+        background-image: url('https://www.images.cybrosys.com/images/cybro-logo-color.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+    .mega-nav .menu > ul > li > ul
+    {
+        top: 35px;
+    }
+    .link-none.menu-dropdown-icon
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .link-none.menu-dropdown-icon::after
+    {
+        content: "";
+        width: 18px;
+        height: 18px;
+        display: inline-block;
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiMwZjBmMGYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTcuNDEgOC41OSAxMiAxMy4xN2w0LjU5LTQuNThMMTggMTBsLTYgNi02LTYgMS40MS0xLjQxWiI+PC9wYXRoPgo8L3N2Zz4=");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        position: relative;
+        right: 0px;
+        top: 0px;
+        transition: all 0.3s ease-in-out;
+    }
+    .dark .link-none.menu-dropdown-icon::after
+    {
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiNmZmZmZmYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTcuNDEgOC41OSAxMiAxMy4xN2w0LjU5LTQuNThMMTggMTBsLTYgNi02LTYgMS40MS0xLjQxWiI+PC9wYXRoPgo8L3N2Zz4=");
+    }
+    .dark .cybro-logo
+    {
+        display: inline-block;
+        width: 170px;
+        height: 37px;
+        background-image: url('https://www.images.cybrosys.com/images/cybro-logo-white.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+    .dark .mega-nav .menu
+    {
+        background-color: #1a1a1a;
+    }
+    .dark .menu-container.mega-nav::after
+    {
+        content: "";
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+        width: 100%;
+        height: 1px;
+        background: #252525 !important;
+    }
+    
+    .dark .mega-nav .menu > ul > li a, .dark .link-none
+    {
+        color: #f7f7f7 !important;
+    }
+    
+    .dark .mega-nav .menu > ul > li:active, .dark .mega-nav .menu > ul > li:focus, .dark .mega-nav .menu > ul > li:hover
+    {
+        background: transparent !important;
+    }
+    .dark .mega-nav .menu > ul > li > ul, .dark .mega-nav .menu .show-on-mobile
+    {
+        background: #1a1a1a !important;
+    }
+    .dark .odoo-book-major-divider, .dark p.link-sub-none.link-none, .dark .mega-nav .menu > ul > li > ul > li
+    {
+        border-bottom: 1px solid #252525 !important;
+    }
+    .dark .mega-nav .menu > ul > li a:hover
+    {
+        color: #337ab7 !important;
+    }
+    .dark .mega-nav .menu-mobile:after
+    {
+        border-top: 3px solid #FFF !important;
+    }
+    .dark .mega-nav .menu-mobile
+    {
+        border-top: 3px solid #FFF !important;
+        border-bottom: 3px solid #FFF !important;
+    }
+    @media only screen and (max-width: 959px)
+    {
+        .dark .mega-nav .menu > ul > li
+        {
+            border-bottom: 1px solid #252525 !important;
+        }
+        .mega-nav .link-none:before
+        {
+            background: transparent !important;
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiMzMDMwMzAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTcuNDEgOC41OSAxMiAxMy4xN2w0LjU5LTQuNThMMTggMTBsLTYgNi02LTYgMS40MS0xLjQxWiI+PC9wYXRoPgo8L3N2Zz4=") !important;
+        }
+        .dark .mega-nav .link-none:before
+        {
+            background: transparent !important;
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiNmZmZmZmYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTcuNDEgOC41OSAxMiAxMy4xN2w0LjU5LTQuNThMMTggMTBsLTYgNi02LTYgMS40MS0xLjQxWiI+PC9wYXRoPgo8L3N2Zz4=") !important;
+        }
+        .link-none.menu-dropdown-icon::after, .dark .link-none.menu-dropdown-icon::after
+        {
+            background-image: unset !important;
+        }
+    }
+
+</style>
+
+<header class="nav-down">
+<div class="menu-container mega-nav">
+  <div class="menu">
+  	<a id="header111_HyperLink24" href="https://www.cybrosys.com/"><span class="cybro-logo"></span></a>
+    <a class="menu-mobile" href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch3/#" aria-label="mobile menu">&nbsp;</a><ul class="clearfix mobile-menu-container">
+      <li><a id="header111_HyperLinkj7" href="https://www.cybrosys.com/">Home</a></li>
+       <li class="link-none menu-dropdown-icon">Odoo 
+        <ul class="menu-display">
+          <li>
+          <a id="header111_HyperLink35" href="https://www.cybrosys.com/odoo/odoo-erp/">Odoo ERP</a>
+            <ul>
+                <li><a id="header111_HyperLink58" href="https://www.cybrosys.com/odoo/">Odoo </a></li>
+                <li><a id="header111_HyperLink15" href="https://www.cybrosys.com/hire-odoo-developer/">Hire Odoo Developer</a></li>
+                <li><a id="header111_HyperLink31" href="https://www.cybrosys.com/odoo-customization-and-installation/">Odoo Customization</a></li>
+                <li><a id="header111_HyperLink32" href="https://www.cybrosys.com/odoo-erp-implementation/">Odoo Implementation</a></li>
+                <li><a id="header111_HyperLink33" href="https://www.cybrosys.com/odoo-erp-integration/">Odoo Integration</a></li>
+                <li><a id="header111_HyperLink54" href="https://www.cybrosys.com/odoo-migration-service/">Odoo Migration</a></li>
+                <li><a id="header111_HyperLink34" href="https://www.cybrosys.com/odoo-erp-support/">Odoo Support</a></li>
+                <li><a id="header111_HyperLink26" href="https://www.cybrosys.com/odoo/odoo-demo/">Odoo Demo</a></li>
+                <li><a id="header111_HyperLink36" href="https://www.cybrosys.com/odoo/odoo-pricing/">Odoo Pricing</a></li>
+		<li><a id="header111_HyperLink70" href="https://www.cybrosys.com/odoo/odoo-success-packs/">Odoo Success Pack</a></li>
+                <li><a id="header111_HyperLink44" href="https://www.cybrosys.com/odoo/odoo-licensing-consultancy/">Odoo Licensing Consultancy</a></li>
+                <li><a id="header111_HyperLink45" href="https://www.cybrosys.com/odoo/odoo-training/">Odoo Training</a></li>
+                <li><a id="header111_HyperLink55" href="https://www.cybrosys.com/odoo/odoo-consultant/">Odoo Consultancy</a></li>
+                <li><a id="header111_HyperLink67" href="https://www.cybrosys.com/odoo/odoo-hosting/">Odoo Hosting</a></li>
+		
+
+            </ul>
+          </li>
+          <li>
+          <a id="header111_HyperLink17" href="https://www.cybrosys.com/odoo/industries/">Industries</a>
+            <ul>
+              <li><a id="header111_HyperLink3" href="https://www.cybrosys.com/odoo/industries/best-trading-erp/">Trading</a></li>
+              <li><a id="header111_HyperLink4" href="https://www.cybrosys.com/odoo/industries/manufacturing-erp-software/">Manufacturing</a></li>
+              <li><a id="header111_HyperLink5" href="https://www.cybrosys.com/odoo/industries/restaurant-management/">Restaurant Management</a></li>
+              <li><a id="header111_HyperLink6" href="https://www.cybrosys.com/odoo/industries/pos/">POS</a></li>
+              <li><a id="header111_HyperLink7" href="https://www.cybrosys.com/odoo/industries/ecommerce-website/">E-commerce Website</a></li>
+              <li><a id="header111_HyperLink8" href="https://www.cybrosys.com/odoo/industries/hotel-management-erp/">Hotel Management </a></li>
+              <li><a id="header111_HyperLink9" href="https://www.cybrosys.com/odoo/industries/education-erp-software/">Education</a></li>
+              <li><a id="header111_HyperLink10" href="https://www.cybrosys.com/odoo/industries/service-management/">Service Management</a></li>
+            </ul>
+          </li>
+          <li>
+          <a id="header111_HyperLink19" href="https://www.cybrosys.com/odoo/field-of-expertise/">Field of Expertise</a>
+            <ul>
+              <li><a id="header111_HyperLink11" href="https://www.cybrosys.com/odoo/industries/accounting-and-finance/">Accounting &amp; Finance</a></li>
+              <li><a id="header111_HyperLink12" href="https://www.cybrosys.com/odoo/industries/warehouse-management/">Warehouse Management</a></li>
+              <li><a id="header111_HyperLink13" href="https://www.cybrosys.com/odoo/field-of-expertise/manufacturing-erp-software/">Manufacturing</a></li>
+              <li><a id="header111_HyperLink20" href="https://www.cybrosys.com/odoo/industries/human-resource/">Human Resource</a></li>
+              <li><a id="header111_HyperLink21" href="https://www.cybrosys.com/odoo/industries/project-management/">Project Management</a></li>
+              <li><a id="header111_HyperLink16" href="https://www.cybrosys.com/odoo/field-of-expertise/pos/">Point of Sale</a></li>
+              <li><a id="header111_HyperLink18" href="https://www.cybrosys.com/odoo/field-of-expertise/ecommerce-website/">E-commerce Website</a></li>
+              <li><a id="header111_HyperLink22" href="https://www.cybrosys.com/odoo/industries/crm/">Customer Relationship (CRM)</a></li>
+              <li><a id="header111_HyperLink23" href="https://www.cybrosys.com/odoo/industries/complete-sales-management-erp/">Sales Management</a></li>
+              <li><a id="header111_HyperLink25" href="https://www.cybrosys.com/odoo/industries/purchasing-management-software/">Purchase Management</a></li>
+            </ul>
+          </li>
+          <li>
+          <a id="header111_HyperLink46" href="https://www.cybrosys.com/erp-comparison/">Odoo Comparison</a>
+            <ul>
+            <li><a id="header111_HyperLink53" href="https://www.cybrosys.com/odoo/compare-odoo-community-vs-enterprise/">Odoo Community VS Enterprise</a></li>
+              <li><a id="header111_HyperLink47" href="https://www.cybrosys.com/odoo/compare-odoo-vs-sap/">Odoo VS SAP</a></li>
+              <li><a id="header111_HyperLink48" href="https://www.cybrosys.com/odoo/compare-odoo-vs-dynamics/">Odoo VS Ms. Dynamics</a></li>
+              <li><a id="header111_HyperLink49" href="https://www.cybrosys.com/odoo/compare-odoo-vs-erpnext/">Odoo VS ERP Next</a></li>
+              <li><a id="header111_HyperLink50" href="https://www.cybrosys.com/odoo/compare-odoo-vs-netsuite/">Odoo VS Netsuite</a></li>
+              <li><a id="header111_HyperLink51" href="https://www.cybrosys.com/odoo/compare-odoo-vs-sage/">Odoo VS Sage</a></li>
+              <li><a id="header111_HyperLink64" href="https://www.cybrosys.com/odoo/compare-odoo-vs-zoho-crm/">Odoo VS Zoho CRM</a></li>
+              <li><a id="header111_HyperLink65" href="https://www.cybrosys.com/odoo/compare-odoo-vs-sugar-crm/">Odoo VS Sugar CRM</a></li>
+              <li><a id="header111_HyperLink61" href="https://www.cybrosys.com/odoo-features-community/">Odoo Community Features</a></li>
+              <li><a id="header111_HyperLink63" href="https://www.cybrosys.com/odoo-features-enterprise/">Odoo Enterprise Features</a></li>
+              <li><a id="header111_HyperLink68" href="https://www.cybrosys.com/odoo/odoo-freelancer/">Odoo Freelancer VS Partner</a></li>
+            </ul>
+          </li>
+           <li><p class="link-sub-none link-none">Other</p>
+            <ul>
+               <li role="presentation"><a id="header111_HyperLink1" href="https://www.cybrosys.com/odoo/odoo-books/">Odoo Book <span class="odoov13new">New-V16</span> </a></li>
+               <li role="presentation"><a id="header111_HyperLink30" href="https://www.cybrosys.com/odoo-apps/">Odoo Apps</a></li>
+               <li role="presentation"><a id="header111_HyperLink62" href="https://www.cybrosys.com/odoo/videos/">Videos</a></li>
+               <li role="presentation"><a id="header111_HyperLink56" href="https://www.cybrosys.com/odoo-development-tutorial/">Odoo Development Tutorial</a></li>
+               <li role="presentation"><a id="header111_HyperLink2888888" href="https://www.cybrosys.com/slides/">Slides</a></li>
+               <li role="presentation"><a id="header111_HyperLink2" href="https://www.cybrosys.com/faq/">FAQ</a></li>
+               <li role="presentation"><a id="header111_HyperLink69" href="https://www.cybrosys.com/odoo/odoo-partners/">Odoo Partner</a></li>
+               <li role="presentation"><a id="header111_HyperLink66" href="https://www.cybrosys.com/odoo/case-studies/">Odoo Case Studies</a></li>
+	       <li role="presentation"><a id="header111_HyperLink666" href="https://www.cybrosys.com/odoo/odoo-16-features/">Odoo 16 Features</a></li>
+               <li><a href="https://www.cybrosys.com/odoo/odoo-books/"><img data-src="https://www.images.cybrosys.com/images/odoo-book-amazon.jpg" width="137" height="179" alt="odoo-book" class=" lazyloaded" src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/odoo-book-amazon.jpg"></a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a id="header111_HyperLink52" href="https://www.cybrosys.com/odoo-erp-implementation/">Implementation</a></li>
+      <li><a id="header111_HyperLink37" href="https://www.cybrosys.com/odoo-customization-and-installation/">Customization</a></li>
+      <li><a id="header111_HyperLink57" href="https://www.cybrosys.com/odoo/odoo-training/">Training</a></li>
+      <li><a id="header111_HyperLink59" href="https://www.cybrosys.com/odoo-erp-support/">Support</a></li>
+
+      
+      <li><a id="header111_HyperLink60" href="https://www.cybrosys.com/resources/">Resources</a></li>
+      <li><a id="header111_HyperLink28" href="https://www.cybrosys.com/blog/">Blog</a></li>
+
+
+      <li class="link-none our-company-menu menu-dropdown-icon">Company
+        <ul class="normal-sub">
+                <li><a id="header111_HyperLink29" href="https://www.cybrosys.com/contact/">Contact</a></li>
+                <li><a id="header111_HyperLink14" href="https://www.cybrosys.com/about-us/">About</a></li>
+                <li><a id="header111_HyperLink38" href="https://www.cybrosys.com/employee-staffing/">Employee Staffing</a></li>
+                <li><a id="header111_HyperLink27" href="https://www.cybrosys.com/hire-python-developer/">Hire Python Developer</a></li>
+                <li><a id="header111_HyperLink39" href="https://www.cybrosys.com/portfolio/">Portfolio</a></li>
+                <li><a id="header111_HyperLink40" href="https://www.cybrosys.com/life-at-cybrosys/">Cybrosian's Life</a></li>
+                <li><a id="header111_HyperLink41" href="https://www.cybrosys.com/career/">Career</a></li>
+                <li><a id="header111_HyperLink42" rel="noopener" href="https://maps.app.goo.gl/m8jkTiVFTUssHNNA7" target="_blank">View our Company</a></li>
+                <li><a id="header111_HyperLink43" href="https://www.cybrosys.com/sitemap/">Sitemap</a></li>
+        </ul>
+      </li>
+
+
+      
+     
+    </ul>
+  </div>
+  </div>
+  </header>
+<!--<script src="/js/hide-nav-scroll.js"></script>-->
+<script>
+  // Show/Hide Navbar
+  el_autohide = document.querySelector('.menu-container');
+
+
+  if(el_autohide){
+    var last_scroll_top = 0;
+    window.addEventListener('scroll', function() {
+          let scroll_top = Math.abs(window.scrollY);
+         if(Math.abs(scroll_top) < last_scroll_top) {
+              el_autohide.parentElement.classList.remove('nav-up');
+              el_autohide.parentElement.classList.add('nav-down');
+          }
+          else {
+              el_autohide.parentElement.classList.remove('nav-down');
+              el_autohide.parentElement.classList.add('nav-up');
+          }
+          last_scroll_top = scroll_top;
+    });
+  }
+
+
+</script>
+<script>
+
+        const menu = document.querySelector(".menu > ul");
+        const menuParent = document.querySelector(".menu > ul").parentNode;
+
+        const allMenuItems = document.querySelectorAll('.menu > ul > li');
+
+        allMenuItems.forEach(function(item){
+
+            if(item.hasChildNodes() && item.firstChild.nodeType === 3){
+
+                item.classList.add('menu-dropdown-icon');
+            }
+        });
+
+
+        // Menu Link
+        let linkNode = document.createElement("a");
+        linkNode.classList.add('menu-mobile');
+        linkNode.setAttribute('href', '#');
+        linkNode.setAttribute('aria-label', "mobile menu");
+        linkNode.innerHTML = '&nbsp;';
+
+        menuParent.insertBefore(linkNode, menu);
+
+        document.querySelector(".menu > ul > li").click(function () {
+            if (document.querySelector(window).width() <= 943) {
+                document.querySelector(this).children("ul").fadeToggle(150);
+            }
+        });
+
+            document.querySelector(".menu-mobile").addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(".menu > ul").classList.toggle('show-on-mobile');
+            });
+
+  if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+       window.addEventListener('resize', function () {
+             $(".menu > ul > li > ul").hide(); // Select the child ul elements of li elements within .menu > ul
+        $(".menu > ul").removeClass('show-on-mobile');
+        });
+   }
+
+
+</script>
+
+        <div class="for-mob mar-8">
+            <div class="page-wrapper">
+                <div class="wrapper odoo14book">
+                    <div class="sidebar">
+                        <div class="row" id="body-row">
+                            <div id="sidebar-container" class="sidebar-expanded">
+                                <ul class="list-group">
+                                   <li><a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch1/" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                                <span class="menu-collapsed">Chapter 1 - About Odoo</span>
+                                            </div>
+                                        </a></li>
+                                    <li><a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch2/" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                                <span class="menu-collapsed">Chapter 2 - Setup Odoo Development Environment</span>
+                                            </div>
+                                        </a></li>
+                                    <li><a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch3/#crm" data-toggle="collapse" aria-expanded="false" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                                <span class="menu-collapsed">Chapter 3 - Creating Odoo Modules </span> <span class="submenu-icon ml-auto"></span>
+                                            </div>
+                                        </a>
+                                        <div id="crm" class="collapse show sidebar-submenu">
+                                            <a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch3/" class="list-group-item list-group-item-action">
+                                                <span class="menu-collapsed">Module Structure
+                                                </span> </a>
+                                            <a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch3/adding-models/" class="list-group-item list-group-item-action"><span class="menu-collapsed">Adding Models</span>
+                                            </a>
+                                            <a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch3/adding-menus-and-views/" class="list-group-item list-group-item-action"><span class="menu-collapsed">Adding Menus and Views
+                                                </span>
+                                            </a>
+                                            <a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch3/access-rights/" class="list-group-item list-group-item-action"><span class="menu-collapsed">Access Rights
+                                                </span>
+                                            </a>
+                                            <a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch3/scaffold-command/" class="list-group-item list-group-item-action"><span class="menu-collapsed">Scaffold Command
+                                                </span>
+                                            </a>
+                                            <a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch3/model-attributes/" class="list-group-item list-group-item-action"><span class="menu-collapsed">Model Attributes
+                                                </span>
+                                            </a>
+                                            <a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch3/field-attributes/" class="list-group-item list-group-item-action"><span class="menu-collapsed">Field Attributes
+                                                </span>
+                                            </a>
+                                            <a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch3/data-fields/" class="list-group-item list-group-item-action"><span class="menu-collapsed">Data Fields
+                                                </span>
+                                            </a>
+                                            <a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch3/float-fields/" class="list-group-item list-group-item-action"><span class="menu-collapsed">Float Fields
+                                                </span>
+                                            </a>
+                                            <a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch3/monetary-fields/" class="list-group-item list-group-item-action"><span class="menu-collapsed">Monetary Fields
+                                                </span>
+                                            </a>
+                                            <a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch3/relational-fields/" class="list-group-item list-group-item-action"><span class="menu-collapsed">Relational Fields
+                                                </span>
+                                            </a>
+                                            <a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch3/constraints/" class="list-group-item list-group-item-action"><span class="menu-collapsed">Constraints
+                                                </span>
+                                            </a>
+                                            <a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch3/inheritance/" class="list-group-item list-group-item-action"><span class="menu-collapsed">Inheritance
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li><a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch4/" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                                <span class="menu-collapsed">Chapter 4 - Server Side Development</span>
+                                            </div>
+                                        </a></li>
+                                    <li><a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch5/" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                                <span class="menu-collapsed">Chapter 5 - Data Management</span>
+                                            </div>
+                                        </a></li>
+                                    <li><a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch6/" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                                <span class="menu-collapsed">Chapter 6 - Views</span>
+                                            </div>
+                                        </a></li>
+                                    <li><a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch7/" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                                <span class="menu-collapsed">Chapter 7 - Security </span>
+                                            </div>
+                                        </a></li>
+                                    <li><a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch8/" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                                <span class="menu-collapsed">Chapter 8 - Internationalization </span>
+                                            </div>
+                                        </a></li>
+                                        <li><a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch9/" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                                <span class="menu-collapsed">Chapter 9 - Web Development  </span>
+                                            </div>
+                                        </a></li>
+                                        <li><a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch10/" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                                <span class="menu-collapsed">Chapter 10 - Website Development  </span>
+                                            </div>
+                                        </a></li>
+                                        <li><a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch11/" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                                <span class="menu-collapsed">Chapter 11 - Odoo Web Library (OWL) </span>
+                                            </div>
+                                        </a></li>
+                                        <li><a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch12/" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                                <span class="menu-collapsed">Chapter 12 - Testcases  </span>
+                                            </div>
+                                        </a></li>
+                                        <li><a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch13/" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                                <span class="menu-collapsed">Chapter 13 - Odoo .SH  </span>
+                                            </div>
+                                        </a></li>
+                                        <li><a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch14/" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                                <span class="menu-collapsed">Chapter 14 - Remote Procedure Calls </span>
+                                            </div>
+                                        </a></li>
+                                        <li><a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch15/" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                                <span class="menu-collapsed">Chapter 15 - Performance
+                                                    Optimisation</span>
+                                            </div>
+                                        </a></li>
+                                    <li><a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch16/" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-start align-items-center">
+                                        <span class="menu-collapsed">Chapter 16 - Email</span>
+                                    </div>
+                                </a></li>
+                                <li><a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch17/" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-start align-items-center">
+                                        <span class="menu-collapsed">Chapter 17 - Point Of Sales</span>
+                                    </div>
+                                </a></li>
+                                 <li><a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch18/" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-start align-items-center">
+                                        <span class="menu-collapsed">Chapter 18 - IOT Box</span>
+                                    </div>
+                                </a></li>
+                                <li><a href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch19/" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-start align-items-center">
+                                        <span class="menu-collapsed">Chapter 19 - Others</span>
+                                    </div>
+                                </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main" id="book-body">
+                        <div class="odoo-book-navigation nav-move-right">
+                            <a class="navigation-btn" href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch3/adding-models/">Next
+                                &gt; </a>
+                        </div>
+                        <div class="book-header">
+                            <h1>
+                                Chapter 3 - Odoo 15 Development Book
+                            </h1>
+                        </div>
+                        <div class="book-body">
+                            <h2 class="subhead-level-1" id="crm0">
+                                Module structure </h2>
+                            <p>While creating a module, it definitely has its own structure, and you should make sure
+                                that you have followed the module structure. A module comprises different components
+                                such as models, views, security, etc.</p>
+                            <p>Mainly an Odoo module is declared by its manifest</p>
+                            <p>All modules must have a python file and a manifest file that are __init__.py file and
+                                __manifest__.py file.</p>
+                            <p>We can take a look at the structure.</p>
+                            <a data-fancybox="gallery" href="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/odoo-development-book-28.png">
+                                <img src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/odoo-development-book-28.png" alt="odoo-crm" width="1363" height="495">
+                            </a>
+                            <p>The basic structure of the module is shown above. Basically, the odoo module contains an
+                                __init__.py file and __manifest__.py file.</p>
+                            <p>A module is also a Python package that includes a __init .py file that contains import
+                                instructions for the module's numerous Python files. For example, if the module has a
+                                single pythonfile.py file __init__.py might contain:</p>
+                            <pre class="wp-block-code"><code>from . import pythonfile </code></pre>
+                            <h3 class="subhead-level-3">__manifest__.py</h3>
+                            <p>In the __manifest__.py, We have to describe the name of the module, author name, version,
+                                description, company, category, etc.</p>
+                            <p>name - Name of the record.</p>
+                            <p>description - Brief description of the module.</p>
+                            <p>version- Specify the version of the module.</p>
+                            <p>license - Specify the distribution license of the module.</p>
+                            <p>author - Author name of the module.</p>
+                            <p>website - Website URL of the module author.</p>
+                            <p>category - Specify the category name.</p>
+                            <p>depends -The list of modules that must install before installing the module.</p>
+                            <p>Data - The files that are installed or updated with the module installation.</p>
+                            <p>Demo - The data files that are installed or updated in active demonstration mode.</p>
+                            <p>Also, the module has directories such as models, views, security, data, demo, static,
+                                wizards, etc.</p>
+                            <h3 class="subhead-level-3">Models</h3>
+                            <p>contain the backend code files, thus creating models and their logic. The model file
+                                contains __init__.py file, which imports all python files on that models directory.</p>
+                            <h3 class="subhead-level-3">Views</h3>
+                            <p>Views file contains the XML files for the user interface, with the actions and views like
+                                forms, lists, etc. The format of the xml file is “sample.xml “ </p>
+                            <h3 class="subhead-level-3">Data</h3>
+                            <p>Data file contains all other data files with the module's initial data.</p>
+                            <h3 class="subhead-level-3">Demo</h3>
+                            <p>The demo contains data files with demonstration data, which is helpful for test,
+                                training, or module evaluation.</p>
+                            <h3 class="subhead-level-3">i18n</h3>
+                            <p>The i18n file contains the translation files. The .po and .pot files are contained on the
+                                i18n. These files need not be mentioned on the manifest file.</p>
+                            <h3 class="subhead-level-3">Security</h3>
+                            <p>It contains XML files that create access groups and record rules for security, as well as
+                                data files that define access control lists, such as the ir.model.access.csv file.</p>
+                            <h3 class="subhead-level-3">Controllers</h3>
+                            <p>The Controllers folder contains the code files for website controllers and modules that
+                                provide that functionality.</p>
+                            <h3 class="subhead-level-3">Static</h3>
+                            <p>All assets are expanded inside the static directory. The files in this directory are open
+                                to the public and can be accessed without a username and password. This directory
+                                contains items like javascript, style sheets, and images that aren't listed in the
+                                module manifest but must be referenced in the web template.</p>
+                            <h3 class="subhead-level-3">Wizard</h3>
+                            <p>Contains all of the files related to wizards. In Odoo, wizards are used to holding
+                                intermediate data.</p>
+                            <h3 class="subhead-level-3">Reports</h3>
+                            <p>Odoo provides a feature to generate pdf documents such as sales orders and invoices. This
+                                report directory holds all the files related to reports.</p>
+                        </div>
+                        <div class="odoo-book-navigation nav-move-right">
+                            <a class="navigation-btn" href="https://www.cybrosys.com/odoo/odoo-books/odoo-15-development/ch3/adding-models/">Next
+                                &gt; </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+<link href="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/cookieconsent.css" rel="stylesheet" type="text/css">
+ 
+
+
+     <link href="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/toastr.min.css" rel="stylesheet">
+    <script src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/toastr.min.js"></script>
+    <script>
+        function showContent() {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "progressBar": true,
+                "preventDuplicates": false,
+                "positionClass": "toast-top-right",
+                "showDuration": "400",
+                "hideDuration": "1000",
+                "timeOut": "7000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr["success"]("Your mail has been sent");
+
+        }
+    </script>
+<style>
+/*contact*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');.home-contact-wrapper{background-color:#0f0f0f;padding:0;position:relative}.home-contact-details{padding:0}.address-wrap{padding:6% 0;-webkit-transition:all .4s;-o-transition:all .4s;-moz-transition:all .4s;transition:all .4s}.icon-box-wrap{width:100%;text-align:right;float:left}.icon-box{border-color:#191919;opacity:1;font-size:20px;border-style:solid;width:40px;height:40px;margin:10px 41px;border-radius:3px;-o-transform:rotate(45deg);-ms-transform:rotate(45deg);-webkit-transform:rotate(45deg);transform:rotate(45deg);border-width:1.5px;float:right;text-align:center;margin-top:23px;padding-top:4px;background:#191919;-webkit-transition:all .4s;-o-transition:all .4s;-moz-transition:all .4s;transition:all .4s}.icon-box .fa{color:#444;-o-transform:rotate(-45deg);-ms-transform:rotate(-45deg);-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transition:all .4s;-o-transition:all .4s;-moz-transition:all .4s;transition:all .4s}.address-wrap h5,p.address-head{color:#fff!important;text-align:left;letter-spacing:.05em;line-height:30px;font-size:19px!important;font-weight:700!important;text-transform:uppercase;margin:3.3em 0 .5em!important;padding-left:10%;font-family:Montserrat,sans-serif!important;height:auto!important}.address-wrap p{text-align:left;margin:0 0 1.1em;font-weight:400;font-size:14px;line-height:25px;color:#99a9b5;width:90%;padding-left:10%;height:110px}div#msg{display:none}.border-bottom-right{border-right-width:1px!important;border-bottom-width:1px!important;border-right-color:#131313!important;border-right-style:solid!important;border-bottom-color:#131313!important;border-bottom-style:solid!important}.home-contact-form *{margin:0;padding:0;box-sizing:border-box}.home-contact-form input{outline:0;border:none}.home-contact-form textarea{outline:0;border:none}.home-contact-form input::-webkit-input-placeholder{color:#99a9b5}.home-contact-form textarea::-webkit-input-placeholder{color:#99a9b5}.home-contact-form .container-contact100{width:100%;display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;padding:15px;position:relative;background-color:transparent;z-index:0}.home-contact-form .wrap-contact100{width:550px;background:0 0}.home-contact-form .contact100-form-title{display:block;font-size:30px;color:#fff;line-height:1.2;text-transform:uppercase;text-align:center;padding-bottom:25px}.home-contact-form .wrap-input100{width:100%;background-color:#191b22;border-radius:31px;margin-bottom:23.8px;position:relative;z-index:1}.home-contact-form .input100{position:relative;display:block;width:100%;background:#191919;border-radius:31px;font-size:12px;color:#99a9b5;line-height:1.2}.home-contact-form input.input100{height:45px;padding:0 35px}.home-contact-form textarea.input100{min-height:122px;padding:19px 35px 0}.home-contact-form .container-contact100-form-btn{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;flex-wrap:wrap;justify-content:center;padding-top:10px}.home-contact-form .contact100-form-btn{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;justify-content:center;align-items:center;padding:0 20px;min-width:150px;height:62px;background-color:#d31c22;border-radius:31px;font-size:16px;color:#fff;line-height:1.2;text-transform:uppercase;-webkit-transition:all .4s;-o-transition:all .4s;-moz-transition:all .4s;transition:all .4s;position:relative;z-index:1}.home-contact-form .contact100-form-btn::before{content:"";display:block;position:absolute;z-index:-1;width:100%;height:100%;top:0;left:50%;-webkit-transform:translateX(-50%);-moz-transform:translateX(-50%);-ms-transform:translateX(-50%);-o-transform:translateX(-50%);transform:translateX(-50%);border-radius:31px;background-color:#c51f25;pointer-events:none;-webkit-transition:all .4s;-o-transition:all .4s;-moz-transition:all .4s;transition:all .4s}.home-contact-form .validate-input{position:relative}.home-contact-form{padding:8% 0 0}.whatapposition{position:fixed;bottom:54px;right:14px;background-color:#25d366;border-radius:31px;width:50px;height:50px;display:flex;justify-content:center;align-items:center;box-shadow:0 0 3px 2px #0000001f;z-index:999999}.whatapposition i{font-size:35px;color:#fff}.fa-map-marker:before{content:"\f041"}@media only screen and (max-width:600px){.whatapposition{position:fixed;bottom:86px;right:31px;background-color:#25d366;border-radius:31px;width:50px;height:50px;display:flex;justify-content:center;align-items:center;box-shadow:0 0 3px 2px #0000001f;z-index:999999}}@media (max-width:1024px){.address-wrap p{font-size:13px}}@media (max-width:767px){.address-wrap p{text-align:left;margin:0 0 1.1em;font-weight:400;font-size:12px;line-height:25px;color:#99a9b5;width:98%;padding-left:5%}.address-wrap{padding:1% 1.5%!important;-webkit-transition:all .4s;-o-transition:all .4s;-moz-transition:all .4s;transition:all .4s;height:290px;width:50%}.address-wrap p{font-size:15px!important}.address-wrap p{text-align:left;margin:0!important;font-weight:400;font-size:14px;line-height:25px;color:#99a9b5;width:100%;padding-left:5%;min-height:138px}.address-head{margin-top:1rem!important}.address-wrap h5,p.address-head{color:#fff!important;text-align:left;letter-spacing:.05em;line-height:30px;font-size:19px!important;font-weight:700!important;text-transform:uppercase;margin:3.3em 0 .5em!important;font-family:Montserrat,sans-serif!important;height:auto!important;min-height:auto}}p br{display:block!important}.whatapposition img{width:100%}.whatapposition{padding:8px}.icon-box img{-o-transform:rotate(-45deg);-ms-transform:rotate(-45deg);-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transition:all .4s;-o-transition:all .4s;-moz-transition:all .4s;transition:all .4s;width:12px}
+/*contact*/
+    
+    /* Dark Mode */
+    .dark .home-footer
+    {
+        background: #1a1a1a !important;
+    }
+    .dark .home-footer p
+    {
+        color: #FFF !important;
+    }
+    .dark a.footer-quick-link, .dark .home-footer p a
+    {
+        color: #e5e5e5 !important;
+    }
+    .dark a.footer-quick-link:hover, .dark .home-footer p a:hover
+    {
+        color: #337ab7 !important;
+    }
+    body.dark::-webkit-scrollbar
+    {
+        width: 10px;
+    }
+    
+    body.dark::-webkit-scrollbar-track
+    {
+        background: #3c3c3c !important;
+    }
+    
+    
+    body.dark::-webkit-scrollbar-thumb
+    {
+        background: #252525 !important;
+    }
+    
+    body.dark::-webkit-scrollbar-thumb:hover
+    {
+        background: #191919 !important;
+    }
+</style>
+<div class="whatapposition">
+<a href="https://api.whatsapp.com/send?phone=918606827707" target="_blank" rel="noopener">
+
+<img src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/whatsap-white.png" width="34" height="34" alt="whatsapp">
+</a>
+</div>
+<div id="contactform" class="container-fluid home-contact-wrapper">    
+    <div class="row" style="margin: 0px;">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 home-contact-details">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 address-wrap border-bottom-right">
+                <div class="icon-box-wrap">
+                    <div class="icon-box">
+                        <img src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/location.png" width="12" height="17" alt="location">
+                    </div>
+                </div>
+                <p class="address-head">Calicut</p>
+                 <p>Cybrosys Technologies Pvt. Ltd.<br>
+                    Neospace, Kinfra Techno Park<br> Kakkancherry, Calicut<br> Kerala, India - 673635</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 address-wrap border-bottom-right">
+                <div class="icon-box-wrap">
+                    <div class="icon-box">
+                        <img src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/location.png" width="12" height="17" alt="location">
+                    </div>
+                </div>
+                <p class="address-head">London</p>
+                <p>Cybrosys Limited<br>
+                   Alpha House, <br>100 Borough High Street, London,<br> SE1 1LB, United Kingdom</p> 
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 address-wrap border-bottom-right">
+                <div class="icon-box-wrap">
+                    <div class="icon-box"> <img src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/location.png" width="12" height="17" alt="location"> </div>
+                </div>
+                <p class="address-head">Kochi</p>
+                <p>Cybrosys Technologies Pvt. Ltd.<br>
+                    1st Floor, Thapasya Building,<br>
+                    Infopark, Kakkanad,<br> Kochi, India - 682030.</p> </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 address-wrap border-bottom-right">
+                <div class="icon-box-wrap">
+                    <div class="icon-box">
+                        <img src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/location.png" width="12" height="17" alt="location">
+                    </div>
+                </div>
+                <p class="address-head">Bangalore</p>
+                <p>Cybrosys Techno Solutions<br>
+                    The Estate, 8th Floor,<br>  Dickenson Road,<br>
+                    Bangalore, India - 560042</p>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 home-contact-form">
+            <div class="container-contact100">
+                <div class="wrap-contact100">
+                    <div class="contact100-form validate-form">
+                    <span class="contact100-form-title">Send Us A Message </span>
+                    <div class="wrap-input100 validate-input" data-validate="Please enter your name">
+                        <label style="display:none;">Name</label>
+                        <input name="footer$txtName" type="text" id="footer_txtName" placeholder="Full Name" class="input100">
+                        <span id="footer_RequiredFieldValidator10" style="color:Red;visibility:hidden;">Please fill out this field.</span>                       
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Please enter your email: e@a.x">
+                        <label style="display:none;">E-mail</label>
+                        <input name="footer$txtMail" id="footer_txtMail" placeholder="E-mail" class="input100" type="email">
+                        <span id="footer_RequiredFieldValidator11" style="color:Red;visibility:hidden;">Please fill out this field.</span>                        
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Please enter your phone">
+                        <label style="display:none;">Phone</label>
+                        <input name="footer$txtPhone" type="text" id="footer_txtPhone" placeholder="Phone" class="input100">
+                        <span id="footer_RequiredFieldValidator12" style="color:Red;visibility:hidden;">Please fill out this field.</span>                       
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Please enter your message">
+                        <label style="display:none;">Comment</label>
+                        <textarea name="footer$txtComment" rows="2" cols="20" id="footer_txtComment" placeholder="Your Message" class="input100"></textarea>
+                        <span id="footer_RequiredFieldValidator13" style="color:Red;visibility:hidden;">Please fill out this field.</span>                        
+                    </div>
+                  
+                  
+ 
+                    <div class="container-contact100-form-btn">
+                        <input type="submit" name="footer$submit_footer_contact_click" value="Send" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;footer$submit_footer_contact_click&quot;, &quot;&quot;, true, &quot;ContactInfoGroup&quot;, &quot;&quot;, false, false))" id="footer_submit_footer_contact_click" class="contact100-form-btn">                       
+                        <div id="msg" class="message">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            
+                        </div>
+                    </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    /*footer*/
+.home-footer{background:#f7f7f7;padding:4% 2% 2%!important;position:relative;display:inline-block;width:100%}.footer-quick-link{padding:5px 0;background:#ffffff00;font-weight:400;font-size:14px;text-decoration:none;color:#2f323f;border-radius:8px;-webkit-transition:.3s linear;transition:.3s linear;line-height:28px}.home-footer h5,p.quick-head{text-align:left;letter-spacing:.05em;color:#3c3950;line-height:30px;font-size:19px!important;font-weight:700!important;text-transform:uppercase;font-family:Montserrat!important}.quick-links-wrap{width:90%}.quick-links-wrap ul{margin:0;padding:0;list-style:none}.quick-links-wrap li{float:none}.home-footer p{text-align:left;margin:0 0 6px;font-weight:600;font-size:14px;line-height:25px;color:#2f323f;width:90%}.home-footer p a{text-align:left;margin:0 0 6px;font-weight:600;font-size:14px;line-height:25px;color:#000;width:90%}.home-footer p .fa{color:#c51f26;padding-top:10px;padding-bottom:10px;padding-right:10px}.home-footer .row{margin:.5em 0;float:left;clear:both}.home-footer .row a{cursor:pointer;display:inline-block;-moz-transition:all .15s ease;-o-transition:all .15s ease;-webkit-transition:all .15s ease;transition:all .15s ease}.home-footer .row{background:0 0}.home-footer .row a{color:#34495e;border:2px solid transparent;border-radius:0;padding:1em;position:relative;background:0 0}.home-footer .row a:not(:first-child){margin-left:1em}.home-footer .row a:nth-child(1){color:#3b5998!important;border-bottom-color:#3b5998}.home-footer .row a:nth-child(2){color:#00a0d1!important;border-bottom-color:#00a0d1}.home-footer .row a:nth-child(3){color:#c8232c!important;border-bottom-color:#c8232c}.home-footer .row a:nth-child(4){color:#0077b5!important;border-bottom-color:#0077b5}.home-footer .row a:nth-child(5){color:#505bd6!important;border-bottom-color:#505bd6}.home-footer .row a:nth-child(6){color:#db4a39!important;border-bottom-color:#db4a39}p.copyright{text-align:center!important;margin-top:5%!important;color:#000!important;width:100%!important}.fa-copyright{color:#000!important}.home-contact-form .contact100-form-btn::before{content:"";display:block;position:absolute;z-index:-1;width:100%;height:100%;top:0;left:50%;-webkit-transform:translateX(-50%);-moz-transform:translateX(-50%);-ms-transform:translateX(-50%);-o-transform:translateX(-50%);transform:translateX(-50%);border-radius:31px;background-color:#c51f25;pointer-events:none;-webkit-transition:all .4s;-o-transition:all .4s;-moz-transition:all .4s;transition:all .4s}@media (max-width:767px){.home-footer .row a{color:#34495e;border:2px solid transparent;border-radius:0;padding:.7em!important;position:relative;background:0 0}}.home-footer img{width:15px}
+/*footer*/
+
+</style>
+<div class="container-fluid home-footer">
+    <div class="">
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+            <p class="quick-head">Quick Links</p>
+            <div class="quick-links-wrap">
+            <div class="col-sm-12 col-xs-12 padd0" style="padding: 0px;">
+            <ul>
+            <li><a id="footer_HyperLink8" class="footer-quick-link" href="https://www.cybrosys.com/odoo/">Odoo</a></li>
+            <li><a id="footer_HyperLink9" class="footer-quick-link" href="https://www.cybrosys.com/odoo-apps/">Odoo Apps</a></li>
+ 	    <li><a id="footer_HyperLink30" class="footer-quick-link" href="https://www.cybrosys.com/odoo/odoo-success-packs/">Odoo Success Pack</a></li>
+            <li><a class="footer-quick-link" href="https://www.cybrosys.com/odoo/odoo-partners/">Odoo Partners</a></li>
+            <li><a id="footer_HyperLink10" class="footer-quick-link" href="https://www.cybrosys.com/buy-source-code/">Buy Source code</a></li>
+            <li><a id="footer_HyperLink12" class="footer-quick-link" href="https://www.cybrosys.com/contact/">Contact us</a></li>
+            <li><a id="footer_HyperLink11" class="footer-quick-link" href="https://www.cybrosys.com/sitemap/">Sitemap</a></li>
+            </ul>
+            </div>           
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+            <p class="quick-head">Services</p>
+            <div class="quick-links-wrap">
+            <div class="col-sm-12 col-xs-12 padd0" style="padding: 0px;">
+            <ul>
+            <li><a id="footer_HyperLink1" class="footer-quick-link" href="https://www.cybrosys.com/odoo-customization-and-installation/">Odoo Customization</a></li>
+            <li><a id="footer_HyperLink2" class="footer-quick-link" href="https://www.cybrosys.com/hire-odoo-developer/">Hire Odoo Developer</a></li>
+            <li><a id="footer_HyperLink3" class="footer-quick-link" href="https://www.cybrosys.com/odoo-erp-implementation/">Odoo Implementation</a></li>
+            <li><a id="footer_HyperLink4" class="footer-quick-link" href="https://www.cybrosys.com/odoo-erp-integration/">Odoo Integration</a></li>
+            <li><a id="footer_HyperLink5" class="footer-quick-link" href="https://www.cybrosys.com/odoo-erp-support/">Odoo Support</a></li>
+            <li><a id="footer_HyperLink6" class="footer-quick-link" href="https://www.cybrosys.com/odoo-migration-service/">Odoo Migration</a></li>
+            <li><a id="footer_HyperLink19" class="footer-quick-link" href="https://www.cybrosys.com/odoo/odoo-consultant/">Odoo Consultancy</a></li>
+            <li><a id="footer_HyperLink18" class="footer-quick-link" href="https://www.cybrosys.com/odoo/odoo-training/">Odoo Training</a></li>
+            <li><a class="footer-quick-link" href="https://www.cybrosys.com/odoo/odoo-licensing-consultancy/">Odoo Licensing</a></li>
+            </ul>
+            </div>
+            
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+            <p class="quick-head">Reference</p>
+            <div class="quick-links-wrap">
+            <div class="col-sm-12 col-xs-12 padd0" style="padding: 0px;">
+            <ul>
+            <li><a class="footer-quick-link" href="https://www.cybrosys.com/odoo/odoo-erp/">Odoo ERP</a></li>
+            
+            <li><a id="footer_HyperLink13" class="footer-quick-link" href="https://www.cybrosys.com/odoo/odoo-software/">Odoo Software</a></li>
+            <li><a id="footer_HyperLink17" class="footer-quick-link" href="https://www.cybrosys.com/odoo/compare-odoo-vs-sap/">Odoo vs SAP</a></li>
+            <li><a id="footer_HyperLink7" class="footer-quick-link" href="https://www.cybrosys.com/odoo/compare-odoo-vs-dynamics/">Odoo vs Dynamics</a></li>
+            <li><a id="footer_HyperLink14" class="footer-quick-link" href="https://www.cybrosys.com/odoo/compare-odoo-vs-erpnext/">Odoo vs ERP Next</a></li>
+            <li><a id="footer_HyperLink15" class="footer-quick-link" href="https://www.cybrosys.com/odoo/compare-odoo-vs-netsuite/">Odoo vs Netsuite</a></li>
+            <li><a id="footer_HyperLink16" class="footer-quick-link" href="https://www.cybrosys.com/odoo/compare-odoo-vs-sage/">Odoo vs Sage</a></li>
+            <li><a id="footer_HyperLink20" class="footer-quick-link" href="https://www.cybrosys.com/odoo/compare-odoo-vs-sugar-crm/">Odoo vs Sugar CRM</a></li>
+            <li><a id="footer_HyperLink21" class="footer-quick-link" href="https://www.cybrosys.com/odoo/compare-odoo-vs-zoho-crm/">Odoo vs Zoho CRM</a></li>
+            </ul>
+            </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+            <p class="quick-head">STAY IN TOUCH</p>
+            <p>
+            <img src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/phone.png" width="15" height="15" alt="phone">
+            +91 8606827707</p>
+            <p>
+            <img src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/envelope.png" width="15" height="15" alt="envelope">
+            info@cybrosys.com</p>
+            <p>
+            <img src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/whatsapp.png" width="15" height="15" alt="whatsapp">
+            +91 8606827707</p>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <p class="quick-head">Connect socially</p>
+            <div class="row">
+                <a href="https://www.facebook.com/cybrosystechnologies" target="_blank" rel="noopener" aria-label="Connect with Facebook"><img src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/facebook.png" width="15" height="15" alt="facebook"></a>
+                <a href="https://twitter.com/cybrosys" target="_blank" rel="noopener" aria-label="Connect with Twitter"><img src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/twitter.png" width="15" height="15" alt="twitter"></a>
+                <a href="https://www.pinterest.com/cybrosys/" target="_blank" rel="noopener" aria-label="Connect with Pinterest"><img src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/pinterest.png" width="15" height="15" alt="facebook"></a>
+                <a href="https://www.linkedin.com/company/cybrosys/" target="_blank" rel="noopener" aria-label="Connect with linkedin"><img src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/linkedin.png" width="15" height="15" alt="linkedin"></a>
+                <a href="https://www.instagram.com/cybrosystech/" target="_blank" rel="noopener" aria-label="Connect with Instagram"><img src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/instagram.png" width="15" height="15" alt="instagram"></a>
+                <a href="https://www.youtube.com/channel/UCKjWLm7iCyOYINVspCSanjg" target="_blank" rel="noopener" aria-label="Connect with Youtube"><img src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/youtube.png" width="15" height="15" alt="youtube"></a>
+                </div>
+           
+        </div>
+    </div>
+    <div class="clear-fix">
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <p class="text-center copyright">
+        <!--<a style=" padding: 0; border-bottom: 0; margin-top: 10px; " href="//www.dmca.com/Protection/Status.aspx?ID=2dd8de25-580e-4123-8671-d6c6ff42269e" title="DMCA.com Protection Status" class="dmca-badge"> <img src="https://images.dmca.com/Badges/dmca_protected_sml_120m.png?ID=2dd8de25-580e-4123-8671-d6c6ff42269e" style=" width: auto !important; " width="100px" height="20px" alt="DMCA.com Protection Status" /></a> 
+         <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>-->
+            Copyright © 2023 Cybrosys Technologies. All Rights
+            Reserved. <a href="https://www.cybrosys.com/privacy-policy/">Privacy Policy</a></p>
+    </div>
+</div>
+
+
+
+</form>
+ 
+<script src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/cookieconsent.min.js" data-cfasync="true"></script>
+
+<script>
+    window.cookieconsent.initialise({
+        "palette": {
+            "popup": {
+                "background": "#ffffff",
+                "text": "#5f727f"
+            },
+            "button": {
+                "background": "#b22126",
+                "text": "#ffffff"
+            }
+        },
+        "content": {
+            "message": "Our website is made agreeable with the GDPR requirements. Click to view the refreshed privacy policy of ours. According to our privacy policy, we use cookies for different highlights. We trust that is alright, If you disagree, disable the cookies.",
+            "dismiss": "Accept",
+            "link": "Privacy policy",
+            "href": "https://www.cybrosys.com/privacy-policy/"
+        }
+    });
+</script>
+
+<script>
+    // Dark Mode
+    const darkModeToggle = document.querySelector('.cybro-dark-mode-toggle__input');
+
+    if(darkModeToggle){
+        const bodyEl = document.querySelector('body');
+        darkModeToggle.addEventListener('change', function(){
+           if(!bodyEl.classList.contains('dark')){
+               bodyEl.classList.add('dark');
+               setCookie('cybro_dark', 'true', 10);
+               return;
+           }
+            bodyEl.classList.remove('dark');
+            setCookie('cybro_dark', 'false', -10);
+
+        });
+    }
+
+
+    window.addEventListener('load', function(){
+     const bodyEl = document.querySelector('body');
+     const darkModeToggle = document.querySelector('.cybro-dark-mode-toggle__input');
+        const currentMode = checkAndAddCookie();
+   
+        if(currentMode === 'true'){
+            bodyEl.classList.add('dark');
+            darkModeToggle.checked = true;
+        }else{
+            bodyEl.classList.add('remove');
+            if(darkModeToggle!=null){
+            darkModeToggle.checked = false;
+            }
+        }
+    });
+
+
+    // Set Cookie
+    function setCookie(cname,cvalue,exdays) {
+      const d = new Date();
+      d.setTime(d.getTime() + (exdays*24*60*60*1000));
+      let expires = "expires=" + d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    // Get Cookie
+    function getCookie(cname) {
+      let name = cname + "=";
+      let decodedCookie = decodeURIComponent(document.cookie);
+      let ca = decodedCookie.split(';');
+      for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+
+    // Check Cookie
+    function checkAndAddCookie() {
+      let mode = getCookie("cybro_dark");
+      if (mode != "") {
+            return mode;
+      }
+      return false;
+    }
+</script>
+<style>
+    .whatapposition {
+    z-index: 9999999999 !important;
+}
+a.cc-link {
+    color: rgb(21 41 56) !important;
+    font-weight: 600 !important;
+}
+</style>
+
+ 
+
+
+
+
+
+
+
+        <script src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/jquery.min.js"></script>
+        <script src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/bootstrap.min.js"></script>
+    
+<script type="text/javascript">
+//<![CDATA[
+var Page_Validators =  new Array(document.getElementById("footer_RequiredFieldValidator10"), document.getElementById("footer_RequiredFieldValidator11"), document.getElementById("footer_RequiredFieldValidator12"), document.getElementById("footer_RequiredFieldValidator13"));
+//]]>
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+var footer_RequiredFieldValidator10 = document.all ? document.all["footer_RequiredFieldValidator10"] : document.getElementById("footer_RequiredFieldValidator10");
+footer_RequiredFieldValidator10.controltovalidate = "footer_txtName";
+footer_RequiredFieldValidator10.errormessage = "Please fill out this field.";
+footer_RequiredFieldValidator10.validationGroup = "ContactInfoGroup";
+footer_RequiredFieldValidator10.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+footer_RequiredFieldValidator10.initialvalue = "";
+var footer_RequiredFieldValidator11 = document.all ? document.all["footer_RequiredFieldValidator11"] : document.getElementById("footer_RequiredFieldValidator11");
+footer_RequiredFieldValidator11.controltovalidate = "footer_txtMail";
+footer_RequiredFieldValidator11.errormessage = "Please fill out this field.";
+footer_RequiredFieldValidator11.validationGroup = "ContactInfoGroup";
+footer_RequiredFieldValidator11.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+footer_RequiredFieldValidator11.initialvalue = "";
+var footer_RequiredFieldValidator12 = document.all ? document.all["footer_RequiredFieldValidator12"] : document.getElementById("footer_RequiredFieldValidator12");
+footer_RequiredFieldValidator12.controltovalidate = "footer_txtPhone";
+footer_RequiredFieldValidator12.errormessage = "Please fill out this field.";
+footer_RequiredFieldValidator12.validationGroup = "ContactInfoGroup";
+footer_RequiredFieldValidator12.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+footer_RequiredFieldValidator12.initialvalue = "";
+var footer_RequiredFieldValidator13 = document.all ? document.all["footer_RequiredFieldValidator13"] : document.getElementById("footer_RequiredFieldValidator13");
+footer_RequiredFieldValidator13.controltovalidate = "footer_txtComment";
+footer_RequiredFieldValidator13.errormessage = "Please fill out this field.";
+footer_RequiredFieldValidator13.validationGroup = "ContactInfoGroup";
+footer_RequiredFieldValidator13.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+footer_RequiredFieldValidator13.initialvalue = "";
+//]]>
+</script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+        //]]>
+</script>
+
+
+
+<script type="text/javascript" id="">var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date;(function(){var a=document.createElement("script"),b=document.getElementsByTagName("script")[0];a.async=!0;a.src="https://embed.tawk.to/5667c9cdc9d916010fae50f7/default";a.charset="UTF-8";a.setAttribute("crossorigin","*");b.parentNode.insertBefore(a,b)})();</script>
+<script type="text/javascript" id="">Tawk_API.onChatStarted=function(){Tawk_API.isVisitorEngaged()&&(window.dataLayer=window.dataLayer||[],window.dataLayer.push({event:"chat-started"}))};</script>
+<script type="text/javascript" id="">var Tawk_API=Tawk_API||{};Tawk_API.onChatStarted=function(){dataLayer.push({event:"chat_started"})};</script><script async="" charset="UTF-8" src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/en.js"></script><div id="wc27l3hh6plo1695885440290" class="widget-visible"><iframe src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/saved_resource.html" frameborder="0" scrolling="no" width="324px" height="44px" style="outline:none !important; visibility:visible !important; resize:none !important; box-shadow:none !important; overflow:visible !important; background:none !important; opacity:1 !important; filter:alpha(opacity=100) !important; -ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity 1}) !important; -mz-opacity:1 !important; -khtml-opacity:1 !important; top:auto !important; right:10px !important; bottom:0px !important; left:auto !important; position:fixed !important; border:0 !important; min-height:44px !important; min-width:324px !important; max-height:44px !important; max-width:324px !important; padding:0 !important; margin:0 !important; -moz-transition-property:none !important; -webkit-transition-property:none !important; -o-transition-property:none !important; transition-property:none !important; transform:none !important; -webkit-transform:none !important; -ms-transform:none !important; width:324px !important; height:44px !important; display:block !important; z-index:1000001 !important; background-color:transparent !important; cursor:none !important; float:none !important; border-radius:unset !important; pointer-events:auto !important; clip:auto !important; color-scheme:light !important;" id="ye8uqnhsenio1695885440304" class="" title="chat widget"></iframe><iframe src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/saved_resource(1).html" frameborder="0" scrolling="no" width="350px" height="420px" style="outline:none !important; visibility:visible !important; resize:none !important; box-shadow:none !important; overflow:visible !important; background:none !important; opacity:1 !important; filter:alpha(opacity=100) !important; -ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity 1}) !important; -mz-opacity:1 !important; -khtml-opacity:1 !important; top:auto !important; right:0px !important; bottom:0px !important; left:auto !important; position:fixed !important; border:0 !important; min-height:420px !important; min-width:350px !important; max-height:420px !important; max-width:350px !important; padding:0 !important; margin:0 !important; -moz-transition-property:none !important; -webkit-transition-property:none !important; -o-transition-property:none !important; transition-property:none !important; transform:none !important; -webkit-transform:none !important; -ms-transform:none !important; width:350px !important; height:420px !important; display:none !important; z-index:auto !important; background-color:transparent !important; cursor:none !important; float:none !important; border-radius:5px 5px  0 0 !important; pointer-events:auto !important; clip:auto !important; color-scheme:light !important;" id="gm4p8779ogho1695885440323" class="" title="chat widget"></iframe><iframe src="./Chapter 3.1 Module Structure - Creating Odoo Modules_files/saved_resource(2).html" frameborder="0" scrolling="no" width="360px" height="145px" style="outline:none !important; visibility:visible !important; resize:none !important; box-shadow:none !important; overflow:visible !important; background:none !important; opacity:1 !important; filter:alpha(opacity=100) !important; -ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity 1}) !important; -mz-opacity:1 !important; -khtml-opacity:1 !important; top:auto !important; right:10px !important; bottom:60px; left:auto !important; position:fixed !important; border:0 !important; min-height:145px !important; min-width:360px !important; max-height:145px !important; max-width:360px !important; padding:0 !important; margin:0 !important; -moz-transition-property:none !important; -webkit-transition-property:none !important; -o-transition-property:none !important; transition-property:none !important; transform:none !important; -webkit-transform:none !important; -ms-transform:none !important; width:360px !important; height:145px !important; display:none !important; z-index:auto !important; background-color:transparent !important; cursor:none !important; float:none !important; border-radius:unset !important; pointer-events:auto !important; clip:auto !important; color-scheme:light !important;" id="v7lgmmbj48q1695885440312" class="" title="chat widget"></iframe><div id="chat-bubble"></div></div></body></html>
