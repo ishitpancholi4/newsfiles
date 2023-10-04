@@ -1,7 +1,7 @@
 git clone https://github.com/odoo/odoo.git --branch 16.0 --depth 1
 
 
-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
+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
 
 ﻿*Python Data Types:
 
@@ -197,6 +197,10 @@ Task 2:
 26)getattr, hasattr, setattr
 27)context & wth_context
 28)self._context
+=============================================================================================================================================
+*When create new user and database
+
+CREATE USER myuser WITH PASSWORD 'myuser';
 
 
 
