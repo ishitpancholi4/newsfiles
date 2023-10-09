@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-pack
 {  # App information
-    'name': 'Ishit Management',
+    'name': 'Office Management',
     'category': '',
     'version': '16.0',
     'summary': """ Managments are made up here""",
@@ -9,7 +9,7 @@
 
     'data': ['security/ir.model.access.csv',
              'views/management_view.xml',
-             #'views/menu_view.xml',
+             'views/service_view.xml',
              ],
 
     'images': [],

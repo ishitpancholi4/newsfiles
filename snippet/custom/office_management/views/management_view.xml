@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="action_office_management" model="ir.actions.act_window">
+            <field name="name">Office_management</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">office.staff</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_fave">
+                    Create New Record
+                </p>
+            </field>
+        </record>
+        <!--Tree view start-->
+        <record id="office_staff_tree" model="ir.ui.view">
+            <field name="name">office.staff.tree</field>
+            <field name="model">office.staff</field>
+            <field name="arch" type="xml">
+                <tree string="Office Staff">
+                    <field name="name"/>
+                    <field name="age"/>
+                    <field name="dob"/>
+                    <field name="mobile"/>
+                    <field name="email"/>
+                </tree>
+            </field>
+        </record>
+        <!--tree view end-->
+
+        <!--form view start-->
+        <record id="office_staff_form" model="ir.ui.view">
+            <field name="name">office.staff.form</field>
+            <field name="model">office.staff</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="age"/>
+                            <field name="dob"/>
+                            <field name="mobile"/>
+                            <field name="email"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--from view end-->
+
+        <menuitem id="staff_menu"
+                  name="Employee Management"
+                  action="action_office_management"
+        />
+
+        <menuitem id="staff_sub_menu"
+                  name="Employee"
+                  action="action_office_management"
+                  parent="staff_menu"
+        />
+        <menuitem id="office_details"
+                  name="details"
+                  action="action_office_details"
+                  parent="staff_sub_menu"
+        />
+        <menuitem id="staff_menu"
+                  name="Employee Management"
+                  action="action_office_management"
+        />
+        <menuitem id="staff_sub_menu"
+                  name="Employee"
+                  action="action_office_management"
+                  parent="staff_menu"
+        />
+        <menuitem id="office_details"
+                  name="details"
+                  action="action_office_details"
+                  parent="staff_sub_menu"
+        />
+    </data>
+</odoo>
