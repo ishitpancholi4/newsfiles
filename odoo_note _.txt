@@ -1,7 +1,7 @@
 git clone https://github.com/odoo/odoo.git --branch 16.0 --depth 1
 
 
-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
+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
 
 ﻿*Python Data Types:
 

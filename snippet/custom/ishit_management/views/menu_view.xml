@@ -1,0 +1,5 @@
+<odoo>
+    <menuitem id="manage_main_menu" name="Management"/>
+    <menuitem id="manage_sub_menu" name="Our Team" parent="ishit_management.manage_main_menu" action="ishit_management.manage_staff_action_id"/>
+
+</odoo>

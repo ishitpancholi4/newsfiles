@@ -1,0 +1,42 @@
+Q1:== a = [['Scranton', 'United States', 'admin@yourcompany.example.com', 'Mitchell Admin', '+1 555-555-5555'], 
+['Rajkot', 'India', 'admin@gmail.com', 'Bhautik Shah', 'False'],
+['Fremont', 'United States', 'azure.interior24@example.com', 'Azure Interior', '(870)-931-0505'],
+['Eugene', 'United States', 'mark.brown23@example.com', 'Marc Demo', '(441)-695']]
+
+b = ['Rajkot', 'India', 'admin@gmail.com', 'Bhautik Shah', 'False']
+
+#Compare List a and b. and check B value available in a or not. if available print yes and break
+
+
+for i in a:
+    if b==i:
+        print("yes")
+        break
+    else:
+        print("no")
+        
+ =========================================================================================================================================
+ 
+ Q2 :=== a = "RK WORLD TOWER,SHITAL PARK" Comma pehla ni and comma pachi ne value get karava ni different variable lai ne ama store karavanu      
+ 
+ 
+ a = "RK WORLD TOWER,SHITAL PARK"
+
+b=a.split(',')[0]
+
+print('b=',b)
+
+c=a.split(',')[-1]
+
+print('c=',c)
+
+===========================================================================================================================================
+
+Q3 a=[1,2,3,4,5] ..........using one line loop print odd number
+
+list=[1,2,3,4,5,6]
+
+
+for i in list: print(i) if i%2!=0 else 'even'
+    
+
