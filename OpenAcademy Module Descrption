@@ -1,0 +1,46 @@
+Open Academy Module odoo13.
+
+1) Create Open Academy Module.
+
+2) create academycourse model.
+And Take Field following:-1) course_name = Char
+						  2) course_ description = Text
+
+3) create demo data for academycourse model
+
+4) inherit res_partner model
+Using the relational field many2many, modify the Session model to relate every session to a set of attendees. Attendees will be represented by partner records, so we will relate to the built-in model res.partner. Adapt the views accordingly.
+
+5) create openacademy_session model.
+And Take Field following:-1)session_name = Char	
+						  2)start_date = Date
+						  3)end_date = Date
+						  4)duration = Float
+						  5)seats = Integer
+						  6)course_id = Many2one(academ.course)
+						  7)attendee_ids = Many2many(res.partner)
+						  8)active =  Boolean
+						  9)attendees_count = Integer
+						  10)color      =  Char
+
+6)Create a report for the Session model
+
+For each session, it should display session_name, its start_ date and end_date, and list the session’s attendees.
+
+7) Wizard:-
+Define the wizard
+==>Create a wizard model with a many2one relationship with the Session model and a many2many relationship with the Partner model.
+
+Launch the wizard 
+
+1)Define a form view for the wizard.
+
+2)Add the action to launch it in the context of the Session model.
+
+3)Define a default value for the session field in the wizard; use the context parameter self._context to retrieve the current session.
+
+4)Register attendees
+  Add buttons to the wizard, and implement the corresponding method for adding the attendees to the given session.
+
+5)Register attendees to multiple sessions
+  Modify the wizard model so that attendees can be registered to multiple sessions.

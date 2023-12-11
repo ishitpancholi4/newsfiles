@@ -1,0 +1,56 @@
+1)Abstract model
+2) Transient model
+3) Models.
+===========================
+4)data:
+
+   1)security:
+
+   2)__manifest__.py:
+
+   3)__init__.py:
+
+   4)static:
+===========================
+fields(creation) =done
+class(odoo) = done
+model(information) = done
+view(structure of model) = done 
+=================================
+MODULE :
+        1)xml:
+        ~button
+        ~menu 
+        ~views (formview,Tree view)
+        ~xpath
+ 
+        2)py:
+        ~methods
+        ~class
+        ~fields(One2many,Many2many,Many2one)
+        -(Char,Selection,Integer,Float,Boolean)
+==================================================
+practical:
+
+  create module  = Done
+  define models  = Done
+  create menu    = Done
+  create window action =Done
+  link menu and actions  = Done
+  set access rights for model = Done
+  create form view = Done
+  create tree view = Done
+  attrs : readonly
+  inheritance
+  Button type: object, action
+=====================================================
+orm method:
+
+search()
+search_count()
+browse()
+
+=====================================================
+raising exception : 1. ValidationError 
+                    2. UserError  
+

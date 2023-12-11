@@ -143,12 +143,7 @@ practical:
   18)what is search method.
   19)super call function.
 
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access.delivery_carrier,access_delivery_carrier,test_shipping_integration.model_delivery_carrier,,1,1,1,1
-access.package_details,access_package_details,test_shipping_integration.model_package_details,,1,1,1,1
-access.res_company,access_res_company,test_shipping_integration.model_res_company,,1,1,1,1
-access.sale_order,access_sale_order,test_shipping_integration.model_sale_order,,1,1,1,1
-access.stock_picking,access_stock_picking,test_shipping_integration.model_stock_picking,,1,1,1,1
+
 
 
 -----------------------------------------------
